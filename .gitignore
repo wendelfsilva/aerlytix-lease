@@ -1,0 +1,28 @@
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+api/venv/
+api/__pycache__/
+api/.vscode/
+
+web/.angular/
+web/.vscode/
+.vscode/
+venv/
+
+*.pyc
+*.log

@@ -1,0 +1,74 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="10px">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+                <div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="10px">
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.description' | translate}}</mat-label>
+                            <input matInput formControlName="description" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.valuation_date' | translate}}</mat-label>
+                            <input [matDatepicker]="valuationDate" dateFormat="YYYY-MM-DD"
+                                formControlName="valuation_date" matInput>
+                            <mat-datepicker-toggle [for]="valuationDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #valuationDate [touchUi]="false"></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.appraised_value' | translate}}</mat-label>
+                            <input matInput currencyMask formControlName="appraised_value">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.depreciation_rate' | translate}}</mat-label>
+                            <input matInput currencyMask formControlName="depreciation_rate">
+                        </mat-form-field>
+                    </div>
+
+                    <h3>{{'general.maintenance' | translate}}</h3>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.initial_used_life' | translate}}</mat-label>
+                            <input matInput [options]="{precision: 0}" currencyMask formControlName="initial_used_life">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.check_interval' | translate}}</mat-label>
+                            <input matInput [options]="{precision: 0}" currencyMask formControlName="check_interval">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.min_check_cost' | translate}}</mat-label>
+                            <input matInput currencyMask formControlName="min_check_cost">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.max_check_cost' | translate}}</mat-label>
+                            <input matInput currencyMask formControlName="max_check_cost">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <div fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button (click)="cancel()">
+                    {{'actions.cancel' | translate}}
+                </button>
+                <button mat-raised-button color="primary" [disabled]="formGroup.invalid" (click)="saveOrUpdate()">
+                    {{'actions.save' | translate}}
+                </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

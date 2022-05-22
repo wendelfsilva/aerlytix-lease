@@ -1,0 +1,91 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="10px">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+                <div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxLayoutGap="10px">
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.aircraft' | translate}}</mat-label>
+                            <mat-select formControlName="aircraft">
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let aircraft of aircrafts" [value]="aircraft.url">
+                                    {{aircraft.description}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <h3>{{'general.pricing' | translate}}</h3>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.economic_closing_date' | translate}}</mat-label>
+                            <input [matDatepicker]="ecd" dateFormat="YYYY-MM-DD" formControlName="economic_closing_date"
+                                matInput>
+                            <mat-datepicker-toggle [for]="ecd" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #ecd [touchUi]="false"></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.net_price' | translate}}</mat-label>
+                            <input matInput currencyMask formControlName="net_price">
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.start_date' | translate}}</mat-label>
+                            <input [matDatepicker]="startDate" dateFormat="YYYY-MM-DD" formControlName="start_date"
+                                matInput>
+                            <mat-datepicker-toggle [for]="startDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #startDate [touchUi]="false"></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.end_date' | translate}}</mat-label>
+                            <input [matDatepicker]="endDate" [min]="formGroup.value.start_date" dateFormat="YYYY-MM-DD"
+                                formControlName="end_date" matInput>
+                            <mat-datepicker-toggle [for]="endDate" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #endDate [touchUi]="false"></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.monthly_rent' | translate}}</mat-label>
+                            <input matInput currencyMask formControlName="monthly_rent">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>{{'general.monthly_mr_rent' | translate}}</mat-label>
+                            <input matInput currencyMask formControlName="monthly_mr_rent">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+                <div fxLayoutGap="10px" *ngIf="formGroup.value.expected_irr">
+                    <span>{{'general.expected_irr' | translate}}:</span>
+                    <strong
+                        [ngClass]="{'ok': formGroup.value.expected_irr >= 0, 'nok': formGroup.value.expected_irr < 0}">
+                        {{formGroup.value.expected_irr | number}}
+                    </strong>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button (click)="cancel()">
+                    {{'actions.cancel' | translate}}
+                </button>
+                <button mat-raised-button color="primary" (click)="saveOrUpdate()" [disabled]="formGroup.invalid">
+                    {{'actions.simulation' | translate}}
+                </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+
+    <app-cash-flow *ngIf="formGroup.value.id" [lease]="formGroup.value.id" [broker]="broker"></app-cash-flow>
+</div>
